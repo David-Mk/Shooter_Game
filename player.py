@@ -6,12 +6,14 @@ from settings import *
 class Player:
     
     def __init__(self, game):
+        
         self.game = game
         self.x, self.y = PLAYER_POS
-        self.angle = PLAYER_ANGLE
+        self.angle = PLAYER_ANG
     
     def movement(self):
         
+        # movement speed and rotation speed initialization
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         
@@ -23,6 +25,7 @@ class Player:
         
         keys = pg.key.get_pressed()
         
+        # movement keys settings
         if keys[pg.K_w]:
             
             #dx, dy = dx + speed_sin, dy + speed_cos
@@ -52,6 +55,7 @@ class Player:
         
         self.collision(dx, dy)
         
+        # rotation keys settings
         if keys[pg.K_LEFT]:
             
             self.angle -= PLAYER_ROT * self.game.delta_time
@@ -61,7 +65,8 @@ class Player:
             self.angle += PLAYER_ROT * self.game.delta_time
         
         self.angle %= math.tau # 2*pi
-        
+    
+    # wall and collision settings
     def wall(self,x, y):
         
         return (x, y) not in self.game.map.worldmap
@@ -74,8 +79,10 @@ class Player:
         if self.wall(int(self.x), int(self.y + dy)):
              
             self.y += dy
-        
+    
+    # player and player's vision visualization
     def draw(self):
+        
         pg.draw.line(self.game.screen, 'blue', (self.x * 100, self.y * 100,), (self.x * 100 + WIDTH * math.cos(self.angle), self.y * 100 + WIDTH * math.sin(self.angle)), 2)
         pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15) 
     

@@ -30,6 +30,7 @@ class Map:
         
         self.get_map()
         
+    # draw map tiles. 1 is wall and _ is free tile
     def get_map(self):
         
         for i, row in enumerate(self.minimap):
