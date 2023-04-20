@@ -12,7 +12,7 @@ class RayCast:
     def rays(self):
         
         x_map, y_map = self.game.player.map_pos
-        ox, oy = self.game.player.map
+        ox, oy = self.game.player.pos
         
         ray_angle = self.game.player.angle - (FOV / 2) + 0.0001
         
@@ -33,12 +33,12 @@ class RayCast:
                 
                 tile_hor = int(x_hor), int(y_hor)
                 
-                if tile_hor in self.game.world_map:
+                if tile_hor in self.game.map.worldmap:
 
                     break
                 
                 x_hor += dx
-                y_hot += dy
+                y_hor += dy
                 depth_hor += delta_depth
             
             
@@ -54,13 +54,24 @@ class RayCast:
                 
                 tile_vert = int(x_vert), int(y_vert)
                 
-                if tile_vert in self.game.map.world_map:
+                if tile_vert in self.game.map.worldmap:
                     
                     break
                 
                 x_vert += dx
                 y_vert += dy
                 depth_vert += delta_depth
+            
+            # depth
+            if depth_vert < depth_hor:
+                
+                depth = depth_vert
+                
+            else:
+                
+                depth = depth_hor
+                
+            pg.draw.line(self.game.screen, 'yellow', (100 * ox, 100 * oy), (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
             
             ray_angle += DELTA_ANG
     
