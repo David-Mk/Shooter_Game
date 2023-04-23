@@ -15,3 +15,6 @@ FOV = math.pi / 3
 NUM_RAYS = WIDTH // 2
 DELTA_ANG = FOV / NUM_RAYS
 MAX_DEPTH = 20
+
+SCREEN_DIST = (WIDTH // 2 ) / (math.tan(FOV/2))
+SCALE = WIDTH // NUM_RAYS

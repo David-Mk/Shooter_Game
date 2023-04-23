@@ -41,14 +41,14 @@ class Player:
         if keys[pg.K_d]:
             
             #dx, dy = dx - speed_sin, dy + speed_cos
-            dx += -speed_cos
-            dy += speed_sin 
+            dx += -speed_sin
+            dy += speed_cos 
         
         if keys[pg.K_a]:
             
             #dx, dy = dx + speed_sin, dy - speed_cos
-            dx += speed_cos
-            dy += -speed_sin 
+            dx += speed_sin
+            dy += -speed_cos
 
         #self.x += dx
         #self.y += dy

@@ -71,7 +71,15 @@ class RayCast:
                 
                 depth = depth_hor
                 
-            pg.draw.line(self.game.screen, 'yellow', (100 * ox, 100 * oy), (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
+            # projection
+            prj_height = SCREEN_DIST / (depth + 0.0001)
+            
+            # walls and distance
+            color = [255 / (1 + depth ** 5 * 0.00002)] * 3
+            pg.draw.rect(self.game.screen, color, (ray * SCALE, HEIGHT // 2 - prj_height // 2, SCALE, prj_height))
+            
+            # FOV render
+            #pg.draw.line(self.game.screen, 'yellow', (100 * ox, 100 * oy), (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
             
             ray_angle += DELTA_ANG
     
